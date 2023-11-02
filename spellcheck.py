@@ -23,11 +23,12 @@ def main():
     
     # Linear Search
     def linearSearch(anArray, item):
-        n = 0
-        while n < len(anArray):
-            if anArray[n] == item:
-                return n
-            n += 1
+        for i in range(len(anArray)):
+            if anArray[i] == item:
+                return i
+        return None    
+        
+
 
 
 
@@ -81,12 +82,17 @@ def main():
                print("%s is IN the Dictionary at Position %s" %(word, x))
 
         
-        
+         
         elif option == 3:
             notInDict = 0
-            x = linearSearch(dictionary,aliceWords[20])
-            print(x)
-            print("Number of words not Found In Dictionary: %s" % notInDict)
+            for i in range(len(aliceWords)):
+                print(aliceWords[i])
+                linearSearch(dictionary, aliceWords[i])
+
+
+
+
+              
 
         
         
