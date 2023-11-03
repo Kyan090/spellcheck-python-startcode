@@ -6,31 +6,20 @@
 
 import math
 import re  # Needed for splitting text with a regular expression
-
+import time
 
 def main():
     # Load data files into lists
     dictionary = loadWordsFromFile("data-files/dictionary.txt")
     aliceWords = loadWordsFromFile("data-files/AliceInWonderLand.txt")
-
-
-
-    # timing function
-    def howLong():
-        startTime = 0
-        endTime = 0
-        timeElapsed = endTime - startTime
-
     
     # Linear Search
     def linearSearch(anArray, item):
         for i in range(len(anArray)):
             if anArray[i] == item:
                 return i
-        return None    
+        return -1    
         
-
-
 
 
     # Binary Search
@@ -47,7 +36,7 @@ def main():
             elif item > mi_value:
                 li = mi + 1
 
-        return None
+        return -1
 
 
     # Main Menu loop
@@ -64,39 +53,58 @@ def main():
 
         if option == 1:
            word = input("Please enter a Word to Search: ")
-           x = linearSearch(dictionary, word)
+           x = linearSearch(dictionary, word.lower())
+           start = time.time()
            print("Linear Search Starting...")
-           if x == None:
+           if x == -1:
                print("%s is NOT in the dictionary" % word) 
            else:
                print("%s is IN the Dictionary at Position %s" %(word, x))
-        
+           end = time.time()
+           print(end - start)
+
         
         
         elif option == 2:
             word = input("Please enter a Word to Search: ")
-            x = binarySearch(dictionary, word)
+            x = binarySearch(dictionary, word.lower())
+            start = time.time()
             print("Binary Search Starting...")
-            if x == None:
+            if x == -1:
                print("%s is NOT in the dictionary" % word) 
             else:
                print("%s is IN the Dictionary at Position %s" %(word, x))
+            end = time.time()
+            print(end - start)
 
         
          
         elif option == 3:
             notInDict = 0
+            start = time.time()
             for i in range(len(aliceWords)):
-                print(aliceWords[i])
-                linearSearch(dictionary, aliceWords[i])
+                x = linearSearch(dictionary, aliceWords[i].lower())
+                if x == -1:
+                    notInDict += 1
+                end = time.time()
+            print("number of words not found in dictionary: %s" % notInDict)
+            print(end - start)
 
+ 
 
 
 
             
         elif option == 4:
-            print("4")
-        
+            notInDict = 0
+            start = time.time()
+            for i in range(len(aliceWords)):
+                x = binarySearch(dictionary, aliceWords[i].lower())
+                if x == -1:
+                    notInDict += 1
+                end = time.time()
+            print("number of words not found in dictionary: %s" % notInDict)         
+            print(end - start)
         
         
         elif option == 5:
